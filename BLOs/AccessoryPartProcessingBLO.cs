@@ -3,6 +3,7 @@ using Api.DTOs;
 using Api.Entities;
 using Api.Interfaces;
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -15,15 +16,18 @@ namespace Api.BLOs
     public class AccessoryPartProcessingBLO : IAccessoryPartProcessingBLO, IComponentProcessingInterface
     {
         private readonly IMapper _mapper;
+        private readonly IConfiguration _config;
         private readonly IProcessRequestAndResponseRepository _processRequestAndResponseRepository;
         private readonly IUserRepository _userRepository;
 
         public AccessoryPartProcessingBLO(IProcessRequestAndResponseRepository processRequestAndResponseRepository,
-        IUserRepository userRepository, IMapper mapper)
+        IUserRepository userRepository, IMapper mapper,
+        IConfiguration config)
         {
             _userRepository = userRepository;
             _processRequestAndResponseRepository = processRequestAndResponseRepository;
             _mapper = mapper;
+            _config = config;
         }
 
         public async Task<ProcessResponseDto> ProcessDefectiveComponent(ProcessRequestDto processRequestDto, string username)
@@ -51,13 +55,15 @@ namespace Api.BLOs
 
         public async Task<ProcessResponseDto> ComputeProcessResponse(ProcessRequest processRequest)
         {
-            string Baseurl = "https://localhost:44335/";
+            //string Baseurl = "https://localhost:44335/";
+
+            string BaseUrl = _config["PackagingAndDeliverSvcURL"];
 
             double packagingAndDeliveryCharge = 0;
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(BaseUrl);
 
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
