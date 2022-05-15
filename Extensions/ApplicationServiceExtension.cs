@@ -8,6 +8,7 @@ using Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace Api.Extensions
 {
@@ -18,7 +19,7 @@ namespace Api.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                options.UseInMemoryDatabase("ReturnOrderPortalDB");
             });
 
             services.AddScoped<IIntegralPartProcessingBLO, IntegralPartProcessingBLO>();
