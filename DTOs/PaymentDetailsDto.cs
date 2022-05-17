@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.DTOs
 {
+    /// <summary>
+    /// Dto for Payment details and CompleteProcessing action
+    /// </summary>
     public class PaymentDetailsDto
     {
         [Required]

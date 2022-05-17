@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.DTOs
 {
+    /// <summary>
+    /// Dto for Process request and ProcessDetail action
+    /// </summary>
     public class ProcessRequestDto
     {
         public int Id { get; set; }

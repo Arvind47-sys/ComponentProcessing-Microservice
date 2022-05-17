@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace api.Repository
 {
+    /// <summary>
+    /// Repository for adding and retriving App users
+    /// </summary>
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;

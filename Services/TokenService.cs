@@ -10,6 +10,9 @@ using System.Text;
 
 namespace Api.Services
 {
+    /// <summary>
+    /// Service to generate JWT using the secret key in appsettings.json
+    /// </summary>
     public class TokenService : ITokenService
     {
         private SymmetricSecurityKey _key;

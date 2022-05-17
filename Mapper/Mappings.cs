@@ -4,6 +4,9 @@ using AutoMapper;
 
 namespace api.Mapper
 {
+    /// <summary>
+    /// Contains all mapping configurations used in the project
+    /// </summary>
     public class Mappings : Profile
     {
         public Mappings()

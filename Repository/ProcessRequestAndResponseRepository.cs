@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace api.Repository
 {
+    /// <summary>
+    /// Repository related to CRUD operation for Process Request and Response
+    /// </summary>
     public class ProcessRequestAndResponseRepository : IProcessRequestAndResponseRepository
     {
         private readonly DataContext _context;
@@ -21,13 +24,13 @@ namespace api.Repository
             _mapper = mapper;
         }
 
-        public async Task CreateNewProcessesRequest(ProcessRequest processRequest)
+        public async Task CreateNewProcessRequest(ProcessRequest processRequest)
         {
             _context.ProcessRequest.Add(processRequest);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> CreateNewProcessesResponse(ProcessResponse processResponse)
+        public async Task<bool> CreateNewProcessResponse(ProcessResponse processResponse)
         {
             _context.ProcessResponses.Add(processResponse);
             return await _context.SaveChangesAsync() > 0;
@@ -39,10 +42,10 @@ namespace api.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteProcessRequest(ProcessRequest processRequest)
+        public async Task<bool> DeleteProcessRequest(ProcessRequest processRequest)
         {
             _context.ProcessRequest.Remove(processRequest);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public UserRequestDetailsDto GetAllUserReturnRequests(int appUserId)
@@ -67,6 +70,16 @@ namespace api.Repository
             };
 
             return userRequestDetails;
+        }
+
+        public async Task<bool> ReturnRequestExists(int requestId)
+        {
+            return await _context.ProcessRequest.AnyAsync(x => x.Id == requestId);
+        }
+
+        public async Task<ProcessRequest> GetProcessRequest(int requestId)
+        {
+            return await _context.ProcessRequest.SingleOrDefaultAsync(x => x.Id == requestId);
         }
     }
 }

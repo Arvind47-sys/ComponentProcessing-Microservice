@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
+    /// <summary>
+    /// Contains end point methods for user account services
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase

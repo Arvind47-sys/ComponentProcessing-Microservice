@@ -20,7 +20,9 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // AddApplicationServices is an IServiceCollection extension for all app specific services
             services.AddApplicationServices(_config);
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -28,6 +30,8 @@ namespace Api
             });
             services.AddCors();
             services.AddIdentityServices(_config);
+
+            //Log Filter
             services.AddControllersWithViews(p => p.Filters.Add(new LogFilterAttribute()));
         }
 

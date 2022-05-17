@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.DTOs
 {
+    /// <summary>
+    /// Dto for register action
+    /// </summary>
     public class RegisterDto
     {
         [Required]

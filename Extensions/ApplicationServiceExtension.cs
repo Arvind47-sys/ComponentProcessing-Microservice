@@ -8,10 +8,12 @@ using Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace Api.Extensions
 {
+    /// <summary>
+    /// Extension for application related services
+    /// </summary>
     public static class ApplicationServiceExtension
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
@@ -28,6 +30,7 @@ namespace Api.Extensions
             services.AddAutoMapper(typeof(Mappings));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProcessRequestAndResponseRepository, ProcessRequestAndResponseRepository>();
+            services.AddScoped<IPackagingAndDeliveryBLO, PackagingAndDeliveryBLO>();
 
             return services;
         }

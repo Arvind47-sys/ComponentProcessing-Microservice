@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.DTOs
 {
+    /// <summary>
+    /// Dto for Login action
+    /// </summary>
     public class LoginDto
     {
         [Required]

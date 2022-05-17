@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Api.Extensions
 {
+    /// <summary>
+    /// Identity service for JWT
+    /// </summary>
     public static class IdentityServiceExtension
     {
         public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)

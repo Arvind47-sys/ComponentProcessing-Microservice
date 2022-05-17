@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace Api.DTOs
 {
+    /// <summary>
+    /// Dto for user's return requests and responses
+    /// </summary>
     public class UserRequestDetailsDto
     {
 

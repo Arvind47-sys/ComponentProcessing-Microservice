@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace Api.Controllers
 {
+    /// <summary>
+    /// Contains end points for user related service to fetch all user return requests
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
@@ -22,6 +25,10 @@ namespace Api.Controllers
             _context = dataContext;
         }
 
+        /// <summary>
+        /// Gets all User return requests
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("getAllUserReturnRequests")]
         public ActionResult<UserRequestDetailsDto> GetAllUserReturnRequests()
         {
