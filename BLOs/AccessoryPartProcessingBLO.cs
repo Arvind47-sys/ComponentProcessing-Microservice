@@ -4,11 +4,7 @@ using Api.DTOs;
 using Api.Entities;
 using Api.Interfaces;
 using AutoMapper;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Api.BLOs

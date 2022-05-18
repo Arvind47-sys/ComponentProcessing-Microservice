@@ -1,4 +1,3 @@
-using api.Repository.IRepository;
 using Api.Constants;
 using Api.DTOs;
 using Api.Interfaces;
@@ -76,7 +75,7 @@ namespace Api.Controllers
 
                 var result = await _completeProcessingBLO.SaveReturnRequest(paymentDetails, username);
                 return Ok(result);
-            }           
+            }
         }
 
         /// <summary>
@@ -88,7 +87,7 @@ namespace Api.Controllers
         [Route("DeleteReturnRequest/{requestId}")]
         public async Task<ActionResult> DeleteReturnRequest(int requestId)
         {
-            if(await _completeProcessingBLO.CancelReturnRequest(requestId))
+            if (await _completeProcessingBLO.CancelReturnRequest(requestId))
             {
                 return NoContent();
             }

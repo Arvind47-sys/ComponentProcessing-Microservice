@@ -28,9 +28,9 @@ namespace Api.BLOs
         /// <returns></returns>
         public async Task<double> ComputePackagingAndDeliveryCost(ProcessRequest processRequest)
         {
-            //string BaseUrl = "https://localhost:44335/";
+            string BaseUrl = "https://localhost:44335/";
 
-            string BaseUrl = _config["PackagingAndDeliverySvcURL"];
+            //string BaseUrl = _config["PackagingAndDeliverySvcURL"];
 
             double packagingAndDeliveryCharge = 0;
 
