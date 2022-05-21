@@ -3,27 +3,25 @@ kind: Deployment
 metadata:
     name: componentProcessingsvc-deployment
     labels:
-      app: ReturnOrderAKSConnection
+      app: componentProcessingSvc
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ReturnOrderAKSConnection      
+      app: componentProcessingSvc      
   template:
     metadata:
       labels:
-        app: ReturnOrderAKSConnection
+        app: componentProcessingSvc
     spec:
       containers:
-        - name: ReturnOrderAKSConnection
+        - name: componentprocessingsvc
           image: returnordercr.azurecr.io/componentprocessingserviceimage:latest
           ports:
             - containerPort: 8080
       imagePullSecrets:
         - name: returnordersvcsecret
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -33,6 +31,6 @@ spec:
   ports:
     - port: 80
   selector:
-      app: ReturnOrderAKSConnection      
+      app: componentProcessingSvc      
     
     
