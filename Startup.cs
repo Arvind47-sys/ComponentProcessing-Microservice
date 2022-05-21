@@ -1,5 +1,6 @@
-using api.Logger;
 using Api.Extensions;
+using Api.Logger;
+using Api.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -60,6 +61,9 @@ namespace Api
 
             //Log Filter
             services.AddControllersWithViews(p => p.Filters.Add(new LogFilterAttribute()));
+
+            //Service to get the processing charge and duration from appsettings.json
+            services.Configure<ProcessingChargeAndDurationDetails>(_config.GetSection("ProcessingChargeAndDurationDetails"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

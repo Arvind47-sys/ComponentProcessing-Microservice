@@ -1,4 +1,5 @@
 using Api.DTOs;
+using Api.Models;
 using System.Threading.Tasks;
 
 namespace Api.Interfaces
@@ -9,6 +10,6 @@ namespace Api.Interfaces
     /// </summary>
     public interface IIntegralPartProcessingBLO
     {
-        Task<ProcessResponseDto> ProcessDefectiveComponent(ProcessRequestDto processRequest, string username);
+        Task<ProcessResponseDto> ProcessDefectiveComponent(ProcessRequestDto processRequest, string username, ProcessingChargeAndDurationDetails processingChargeAndDurationDetails);
     }
 }

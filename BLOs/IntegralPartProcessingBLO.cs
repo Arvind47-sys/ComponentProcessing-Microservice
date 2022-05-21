@@ -1,8 +1,8 @@
 using api.Repository.IRepository;
-using Api.Constants;
 using Api.DTOs;
 using Api.Entities;
 using Api.Interfaces;
+using Api.Models;
 using AutoMapper;
 using System;
 using System.Threading.Tasks;
@@ -37,7 +37,8 @@ namespace Api.BLOs
         /// <param name="processRequestDto"></param>
         /// <param name="username"></param>
         /// <returns>Process Response details</returns>
-        public async Task<ProcessResponseDto> ProcessDefectiveComponent(ProcessRequestDto processRequestDto, string username)
+        public async Task<ProcessResponseDto> ProcessDefectiveComponent(ProcessRequestDto processRequestDto, string username,
+            ProcessingChargeAndDurationDetails processingChargeAndDurationDetails)
         {
             var userId = await _userRepository.GetUserId(username);
             var processRequest = _mapper.Map<ProcessRequest>(processRequestDto);
@@ -48,25 +49,26 @@ namespace Api.BLOs
                 if (processRequestDto.Id == 0)
                 {
                     await _processRequestAndResponseRepository.CreateNewProcessRequest(processRequest);
-                    processResponseResult = await ComputeProcessResponse(processRequest);
+                    processResponseResult = await ComputeProcessResponse(processRequest, processingChargeAndDurationDetails);
                 }
                 else
                 {
                     await _processRequestAndResponseRepository.UpdateProcessRequest(processRequest);
-                    processResponseResult = await ComputeProcessResponse(processRequest);
+                    processResponseResult = await ComputeProcessResponse(processRequest, processingChargeAndDurationDetails);
                 }
             }
             return processResponseResult;
 
         }
 
-        private async Task<ProcessResponseDto> ComputeProcessResponse(ProcessRequest processRequest)
+        private async Task<ProcessResponseDto> ComputeProcessResponse(ProcessRequest processRequest,
+            ProcessingChargeAndDurationDetails processingChargeAndDurationDetails)
         {
             return new ProcessResponseDto
             {
                 RequestId = processRequest.Id,
-                ProcessingCharge = ReturnOrderManagementConstants.ChargeForIntegralPart * processRequest.Quantity,
-                DateOfDelivery = DateTime.Now.AddDays(ReturnOrderManagementConstants.DurationForIntegralPart * processRequest.Quantity),
+                ProcessingCharge = Convert.ToDouble(processingChargeAndDurationDetails.ChargeForIntegralPart) * processRequest.Quantity,
+                DateOfDelivery = DateTime.Now.AddDays(Convert.ToInt32(processingChargeAndDurationDetails.DurationForIntegralPart) * processRequest.Quantity),
                 PackagingAndDeliveryCharge = await _packagingAndDeliveryBLO.ComputePackagingAndDeliveryCost(processRequest)
             };
         }

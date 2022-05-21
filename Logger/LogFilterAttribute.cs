@@ -1,7 +1,7 @@
 ﻿using log4net;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace api.Logger
+namespace Api.Logger
 {
     /// <summary>
     /// Log filter to catch all the possible exceptions in the application.

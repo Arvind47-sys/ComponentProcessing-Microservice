@@ -1,9 +1,11 @@
 using Api.Constants;
 using Api.DTOs;
 using Api.Interfaces;
+using Api.Models;
 using API.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
@@ -19,14 +21,16 @@ namespace Api.Controllers
         private readonly IIntegralPartProcessingBLO _integralPartProcessingBLO;
         private readonly IAccessoryPartProcessingBLO _accessoryPartProcessingBLO;
         private readonly ICompleteProcessingBLO _completeProcessingBLO;
-
+        private readonly IOptions<ProcessingChargeAndDurationDetails> _processingChargeAndDurationDetails;
         public ComponentProcessingController(IIntegralPartProcessingBLO integralPartProcessingBLO,
          IAccessoryPartProcessingBLO accessoryPartProcessingBLO,
-         ICompleteProcessingBLO completeProcessingBLO)
+         ICompleteProcessingBLO completeProcessingBLO,
+         IOptions<ProcessingChargeAndDurationDetails> processingChargeAndDurationDetails)
         {
             _completeProcessingBLO = completeProcessingBLO;
             _accessoryPartProcessingBLO = accessoryPartProcessingBLO;
             _integralPartProcessingBLO = integralPartProcessingBLO;
+            _processingChargeAndDurationDetails = processingChargeAndDurationDetails;
         }
 
         /// <summary>
@@ -44,12 +48,12 @@ namespace Api.Controllers
 
             if (processRequest.DefectiveComponentType == ReturnOrderManagementConstants.Integral)
             {
-                result = await _integralPartProcessingBLO.ProcessDefectiveComponent(processRequest, username);
+                result = await _integralPartProcessingBLO.ProcessDefectiveComponent(processRequest, username, _processingChargeAndDurationDetails.Value);
 
             }
             else if (processRequest.DefectiveComponentType == ReturnOrderManagementConstants.Accessory)
             {
-                result = await _accessoryPartProcessingBLO.ProcessDefectiveComponent(processRequest, username);
+                result = await _accessoryPartProcessingBLO.ProcessDefectiveComponent(processRequest, username, _processingChargeAndDurationDetails.Value);
             }
 
             return Ok(result);
