@@ -1,18 +1,18 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: componentProcessingsvc-deployment
+    name: componentprocessingsvc-deployment
     labels:
-      app: componentProcessingSvc
+      app: componentprocessingsvc
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: componentProcessingSvc      
+      app: componentprocessingsvc      
   template:
     metadata:
       labels:
-        app: componentProcessingSvc
+        app: componentprocessingsvc
     spec:
       containers:
         - name: componentprocessingsvc
@@ -21,7 +21,9 @@ spec:
             - containerPort: 8080
       imagePullSecrets:
         - name: returnordersvcsecret
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -31,6 +33,6 @@ spec:
   ports:
     - port: 80
   selector:
-      app: componentProcessingSvc      
+      app: componentprocessingsvc      
     
     
